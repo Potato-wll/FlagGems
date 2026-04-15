@@ -1115,9 +1115,9 @@ def test_accuracy_gcd_zeros(dtype):
     gems_assert_equal(res_out, ref_out)
 
     # gcd(a, 0) = |a|
-    inp1 = torch.randint(
-        low=1, high=0x7FFF, size=shape, dtype=dtype, device="cpu"
-    ).to(flag_gems.device)
+    inp1 = torch.randint(low=1, high=0x7FFF, size=shape, dtype=dtype, device="cpu").to(
+        flag_gems.device
+    )
     inp2 = torch.zeros(shape, dtype=dtype, device=flag_gems.device)
     ref_inp1 = to_reference(inp1)
     ref_inp2 = to_reference(inp2)
@@ -1129,9 +1129,9 @@ def test_accuracy_gcd_zeros(dtype):
 
     # gcd(0, b) = |b|
     inp1 = torch.zeros(shape, dtype=dtype, device=flag_gems.device)
-    inp2 = torch.randint(
-        low=1, high=0x7FFF, size=shape, dtype=dtype, device="cpu"
-    ).to(flag_gems.device)
+    inp2 = torch.randint(low=1, high=0x7FFF, size=shape, dtype=dtype, device="cpu").to(
+        flag_gems.device
+    )
     ref_inp1 = to_reference(inp1)
     ref_inp2 = to_reference(inp2)
 
@@ -1165,9 +1165,9 @@ def test_accuracy_gcd_negative(dtype):
     inp1 = torch.randint(
         low=-0x7FFF, high=-1, size=shape, dtype=dtype, device="cpu"
     ).to(flag_gems.device)
-    inp2 = torch.randint(
-        low=1, high=0x7FFF, size=shape, dtype=dtype, device="cpu"
-    ).to(flag_gems.device)
+    inp2 = torch.randint(low=1, high=0x7FFF, size=shape, dtype=dtype, device="cpu").to(
+        flag_gems.device
+    )
     ref_inp1 = to_reference(inp1)
     ref_inp2 = to_reference(inp2)
 
@@ -1188,11 +1188,13 @@ def test_accuracy_gcd_extreme_values(dtype):
 
     inp1 = torch.tensor(
         [max_val, min_val + 1, 1, max_val, 0] + [max_val] * 59,
-        dtype=dtype, device=flag_gems.device
+        dtype=dtype,
+        device=flag_gems.device,
     )
     inp2 = torch.tensor(
         [1, 1, max_val, max_val, max_val] + [min_val + 1] * 59,
-        dtype=dtype, device=flag_gems.device
+        dtype=dtype,
+        device=flag_gems.device,
     )
     ref_inp1 = to_reference(inp1)
     ref_inp2 = to_reference(inp2)
@@ -1312,12 +1314,10 @@ def test_accuracy_gcd_known_values():
     """Test gcd with known mathematical values."""
     dtype = torch.int64
     inp1 = torch.tensor(
-        [12, 100, 7, 0, 48, 1071, 270],
-        dtype=dtype, device=flag_gems.device
+        [12, 100, 7, 0, 48, 1071, 270], dtype=dtype, device=flag_gems.device
     )
     inp2 = torch.tensor(
-        [8, 75, 13, 5, 18, 462, 192],
-        dtype=dtype, device=flag_gems.device
+        [8, 75, 13, 5, 18, 462, 192], dtype=dtype, device=flag_gems.device
     )
     # Expected: [4, 25, 1, 5, 6, 21, 6]
     ref_inp1 = to_reference(inp1)
@@ -1327,7 +1327,6 @@ def test_accuracy_gcd_known_values():
     with flag_gems.use_gems():
         res_out = torch.gcd(inp1, inp2)
     gems_assert_equal(res_out, ref_out)
-
 
 
 @pytest.mark.gcd
